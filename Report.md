@@ -1,7 +1,7 @@
-#Model Predictive Control Project
-##Description
+# Model Predictive Control Project
+## Description
 In this project you'll implement Model Predictive Control to drive the car around the track. This time however you're not given the cross track error, you'll have to calculate that yourself! Additionally, there's a 100 millisecond latency between actuations commands on top of the connection latency.
-##The Vehicle Model
+## The Vehicle Model
 A simple kinematic model is used for this project. The model takes into account speed, orientation, but ignores dynamic forces such as gravity, air resistance, drag mass and geometry of the vehicle. The state of the model is: position X, Y coordinates, orientation angle Psi, and velocity V.
 
 state: [x, y, psi, v]
@@ -24,7 +24,7 @@ MPC tracks two errors: Cross Track Error (CTE) and Orientation Error (Epsi).
 cte[t+1]   = f(x[t]) - y[t] + v[t] * sin(epsi[t]) * dt
 epsi[t+1]  = psi[t] - psides[t] + v[t] * delta[t] / Lf * dt
 
-##MPC Implementation
+## MPC Implementation
 Sample code from the MPC Quizzes was used to implement MPC. Cost functions were manually re-factored.
 
 The cost function includes:
@@ -50,6 +50,6 @@ for (int t = 0; t < N - 2; t++) {
 
 Tuning the weight of difference cost components ensures better vehicle handling.
 
-##Time Step and Duration
+## Time Step and Duration
 MPC creates a predicted trajectory path T seconds in front the vehicle's current position. T is defined as number of timesteps N times timeperiod delta dt.
 Larger T means longer trajectory path and smoother changes over time. Smaller T means shorter trajectory path, faster response and better accuracy. When using a referencing speed of 40 mph, I found N equals 10 and dt equals 0.05 gives the best performance. However increasing the speed will cause the vehicle to oscillate on the track. In the end I was able to bump up the referencing speed to 65 mph, setting N to 20 and dt to 0.05.
