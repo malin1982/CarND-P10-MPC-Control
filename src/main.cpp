@@ -125,12 +125,13 @@ int main() {
           double epsi = - atan(coeffs[1]);
 
           //use kinematic model to predict state at the moment of control
-          //current time plus dt
-          const double px_dt = v * dt;
+          //current time plus latency DT 0.1 ms
+          const double DT = 0.1;
+          const double px_dt = v * DT;
           const double py_dt = 0;
-          const double psi_dt = - v * steering_angle * dt / Lf;
-          const double v_dt = v + throttle * dt;
-          const double cte_dt = cte + v * sin(epsi) * dt;
+          const double psi_dt = - v * steering_angle * DT / Lf;
+          const double v_dt = v + throttle * DT;
+          const double cte_dt = cte + v * sin(epsi) * DT;
           const double epsi_dt = epsi + psi_dt;
 
           // State: [x,y,ψ,v,cte,eψ]
